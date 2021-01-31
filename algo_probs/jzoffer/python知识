@@ -1,0 +1,13 @@
+1. 
+代码中经常有三中方式判断变量是否为None，主要有三种写法:
+(1) if x is None:
+(2) if not x:
+(3) if not x is None:
+在python中None,False,空字符串，空列表，空字典，空元组都相当于False。
+但在使用列表的时候，x=[]时，x is None 为False，not x 为True。当x=None时反之。
+综上，使用is not None判断最好
+
+2. 
+字典使用
+a = dict()
+a.get(key)
