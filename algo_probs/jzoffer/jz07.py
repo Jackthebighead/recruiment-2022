@@ -1,4 +1,5 @@
 # 题意：斐波那契数列，青蛙跳台阶问题。
+# 解法：递归
 
 class Solution:
     def fib(self, n):

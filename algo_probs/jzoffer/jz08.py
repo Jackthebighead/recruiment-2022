@@ -1,6 +1,7 @@
 # 题意：旋转数组求最小值
-# 解法：不同于O(n)的算法，可以采用二分法进行查找，只不过这不是将mid和target相比较而是将mid和right比
-# 常见二分法注释在下面，O(n)的方法注释在下面
+# 解法：不同于O(n)的算法，可以采用二分法进行查找，只不过这不是将mid和target相比较而是将mid和right比，O(lgn)复杂度。
+# 常见二分法注释在下面
+# O(n)的方法注释在下面
 
 class Solution(object):
     def minArray(self, numbers):

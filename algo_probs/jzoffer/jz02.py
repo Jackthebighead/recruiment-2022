@@ -1,6 +1,9 @@
 # 题意：在一个自左向右递增，自下向上递增的数组中是否存在target数字
+# 解法1：根据数组特性，从左下角开始，若值小于target，不在这一列，往右边移；若大于，不在这一行可能在这一列，往上走，直到越界。linear time复杂度。
+# 解法2：暴力求解，两个for，n^2时间复杂度
 
 class Solution:
+    # 解法1
     def findNumberIn2DArray(self, matrix, target):
     # input: matrix: List[List[int]],target: int -> 
     # output: bool

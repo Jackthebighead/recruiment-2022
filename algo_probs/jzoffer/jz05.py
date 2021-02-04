@@ -1,5 +1,5 @@
 # 题意：根据前向遍历和中序遍历还原BFS形式的二叉树
-# 解法：递归
+# 解法：前序遍历的第一个是中序遍历中间的，根据此可以分成左子树和右子树。
 
 # Definition for a binary tree node.
 class TreeNode:

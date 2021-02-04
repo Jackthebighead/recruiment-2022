@@ -11,3 +11,15 @@
 字典使用
 a = dict()
 a.get(key)
+
+3.
+字符串str
+.replace(old,new)
+字符串添加: +
+
+4. 
+列表list
+.append()
+.pop(index)
+.insert(pos, obj)
+''.join(list): 列表转字符串
