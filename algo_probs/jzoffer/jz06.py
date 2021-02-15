@@ -1,26 +1,28 @@
-# 题意：用两个栈实现一个队列
-# 解法：用python的两个列表模拟双栈，一个进一个出。当输出栈没有，且输入也空时返回-1，输入有时将输入的所有装进输出；当输出栈有时输出一个。
+# 题意：反转数组
+# 解法1：递归，终止条件为head为None返回[]，其余返回‘递归+head.val’
+# 解法2：辅助栈，Python在遍历一个链表的时候，将值依次放入到一个list中，遍历结束后，翻转list输出即可。
+# 注意这里的head就是listNode结构，head其实就相当于一个头节点，调用字节点需要通过.next函数。
 
-class CQueue:
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-    def __init__(self):
-        self.stack_in = []
-        self.stack_out = []
+class Solution:
+    def reversePrint(self, head):
+        # head: ListNode
+        # List[int]
+        if not head:
+            return []
+        return self.reversePrint(head.next) + [head.val]
 
-    def appendTail(self, value):
-        self.stack_in.append(value)
 
-    def deleteHead(self):
-        if not self.stack_out:
-            if not self.stack_in:
-                return -1
-            else:
-                while self.stack_in:
-                    self.stack_out.append(self.stack_in.pop())
-                return self.stack_out.pop()
-        else: return self.stack_out.pop()
+class Solution_2:
+    def reversePrint(self, head):
+        stack = []
+        while head:
+            stack.append(head.val)
+            head = head.next
+        return stack[::-1]
 
-# Your CQueue object will be instantiated and called as such:
-# obj = CQueue()
-# obj.appendTail(value)
-# param_2 = obj.deleteHead()

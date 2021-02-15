@@ -1,39 +1,43 @@
-# 题意：替换字符
-# 解法1：用list或str新建辅助结构遍历，遇见了就替换
-# 解法2：直接用python的reverse函数
+# 题目：找出数组中任意一个有重复的数字
+# 解法1：用hash O(n),O(n)
+# 解法2：先sort再linear查找 O(nlogn),O(1)
+# 解法3：原地置换，节省空间复杂度，依赖题意：n个数，数字在n-1范围内。循环这个list，如果index和value不一样，和value作为index的值比较，若一样返回，不一样一直交换直到index和value一样，进行循环下一步。
 
 class Solution:
-    def replace_space(self, s):
-        s = s.replace(' ', '%20')
-        return s
+    def findRepeatNumber(self, nums):
+        # input: nums: List[int]
+        # output: int
+        res_dict = dict()
+        for i in nums:
+            if res_dict.get(i) is not None:
+                return i
+            else: res_dict[i] = i
+        return 
 
 sol = Solution()
-print(sol.replace_space('We are happy'))
+print(sol.findRepeatNumber([2, 3, 1, 0, 2, 5, 3]))
 
-class Solution_2:
-    def replace_space(self, s):
-        res = ''
-        for i in list(s):
-            if i == ' ':
-                res += '%20'
+ # 解法2   
+def findRepeatNumber_2(self, nums):
+        # input: nums: List[int]
+        # output: int
+        nums.sort()
+        pre = None  # 上一个数字
+        for i in nums:
+            if i == pre: 
+                return i
             else: 
-                res += i
-        return res
+                pre = i
+        return
 
-sol = Solution_2()
-print(sol.replace_space('We are happy'))
-
-
-class Solution_3:
-    def replace_space(self, s):
-     # 注意了解列表转成字符串方法：''.join(res)，使用join函数```
-        res = []
-        for i in s:
-            if i == ' ':
-                res.append('%20')
-            else: 
-                res.append(i)
-        return ''.join(res)
-
-sol = Solution_3()
-print(sol.replace_space('We are happy'))
+# 解法3
+def findRepeatNumber_3(self, nums):
+        # input: nums: List[int]
+        # output: int
+        for index, num in enumerate(nums):
+            while index != num:
+                if nums[num] == num:
+                    return num
+                else: 
+                    num[num], num = num, nums[num]
+    

@@ -1,28 +1,30 @@
-# 题意：反转数组
-# 解法1：递归，终止条件为head为None返回[]，其余返回‘递归+head.val’
-# 解法2：辅助栈，Python在遍历一个链表的时候，将值依次放入到一个list中，遍历结束后，翻转list输出即可。
-# 注意这里的head就是listNode结构，head其实就相当于一个头节点，调用字节点需要通过.next函数。
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+# 题意：在一个自左向右递增，自下向上递增的数组中是否存在target数字
+# 解法1：根据数组特性，从左下角开始，若值小于target，不在这一列，往右边移；若大于，不在这一行可能在这一列，往上走，直到越界。linear time复杂度。
+# 解法2：暴力求解，两个for，n^2时间复杂度
 
 class Solution:
-    def reversePrint(self, head):
-        # head: ListNode
-        # List[int]
-        if not head:
-            return []
-        return self.reversePrint(head.next) + [head.val]
+    # 解法1
+    def findNumberIn2DArray(self, matrix, target):
+    # input: matrix: List[List[int]],target: int -> 
+    # output: bool
+        if not matrix:
+            return False
+        row = len(matrix) - 1 
+        col = len(matrix[0]) - 1
+        i = row
+        j = 0
+        flag = False
+        while(i>=0 and j<=col):
+            if target > matrix[i][j]:
+                j += 1
+            elif target < matrix[i][j]:
+                i -= 1
+            else: 
+                flag = True
+                return flag
+        return flag 
 
-
-class Solution_2:
-    def reversePrint(self, head):
-        stack = []
-        while head:
-            stack.append(head.val)
-            head = head.next
-        return stack[::-1]
+if __name__ == '__main__':
+    sol = Solution()
+    print(sol.findNumberIn2DArray(7,[[1,2,8,9],[2,4,9,12],[4,7,10,13],[6,8,11,15]]))
 
