@@ -1,7 +1,6 @@
 # 题意：从上到下打印二叉树2
 # 题解1：仍旧是BFS，只不过多了些队列的处理，增加来辅助列表
-# 题解2: 递归，引入depth(深度)的做法，fork了别人的，作为了解。
-# 大意就是用depth来控制插入的位置
+# 题解2: 递归，引入depth(深度)的做法，fork了别人的，作为了解。大意就是用depth来控制插入的位置
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -37,7 +36,7 @@ class Solution_2:
         if not root: return []
         res = []
         def helper(root, depth):
-            # 对于一棵树，其每一层的depth值肯定是小于这一层之上的节点数的
+             # 初始len为0，depth为0，在res加第一层即res[0]=[]，然后不断更新，做到每depth+1迭代就对应len(res)+1
             if len(res) == depth:
                 res.append([])
             res[depth].append(root.val)  # 用res[depth]来控制插入的位置
