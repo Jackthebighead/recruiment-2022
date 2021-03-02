@@ -37,7 +37,6 @@ class Solution_3:
         # outputs: int
         # 二分法
         l,r = 0,len(nums)-1
-        res = 0
         def recur(l,r,cnt):
             if l>r:
                 return cnt

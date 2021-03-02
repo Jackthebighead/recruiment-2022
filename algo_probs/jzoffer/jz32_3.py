@@ -20,7 +20,7 @@ class Solution:
         queue.append(root)
         while queue:
             res_temp = collections.deque()
-            for _ in range(len(queue)):
+            for _ in range(len(queue)):  # 对于 python ，range() 的工作机制是在开启循环时建立一个列表，然后循环按照这个列表进行，因此“只会在进入循环前执行一次 len(queue) 
                 temp = queue.popleft()
                 # 将res_temp也设置为双端队列，偶数层就插入到左边
                 if cnt % 2: 

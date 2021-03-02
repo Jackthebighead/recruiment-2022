@@ -11,7 +11,7 @@ class Solution:
         # outputs: List[int]
         res = []
         arr = sorted(arr,reverse=True)
-        for i in range(k):
+        for _ in range(k):
             res.append(arr.pop())
         return res
 

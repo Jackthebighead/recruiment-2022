@@ -16,14 +16,14 @@ class Solution:
         # 对齐两个链表，先走长的链表，走到和短链表一样长时双指针一起遍历，直到发现公共节点
         if not headA or not headB:
             return None
-        len_a,len_b,a,b,res = 0,0,headA,headB,None
+        len_a,len_b,a,b = 0,0,headA,headB
         while a:
             len_a += 1
             a = a.next
         while b:
             len_b += 1
             b = b.next
-        for i in range(abs(len_a-len_b)):
+        for _ in range(abs(len_a-len_b)):
             if len_a>len_b:
                 headA = headA.next
             else:
