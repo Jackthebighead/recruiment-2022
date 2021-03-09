@@ -32,6 +32,11 @@
             - why? python内数字存储不定长，所以不反映符号位，但我们假设转换为16进制按0x0001(1)存储（人为加一个符号位），~操作后按位取反结果是0x1110，因为python是以补码存储，所以要获得值先记住这里符号位1，再忽略符号位整体取反+1得原码，原码位0x0010为2，所以为-2。从结果来看就是相反数-1.
         - e.g. ~(-1&0xffffffff^0xffffffff) = -1
       - 至此，我们可以表达限定长度的python数字了
+  - 短路递归：n>1 and self.sumNums(n-1) 这样的代码，当and前面一项不符合的时候就不会执行后面的代码，可以起到不用if即可完成短路。
+  - python可用类变量来记录全局变化
+    - ``` python
+          def __init__(self,):
+              self.res = 0
 <br>
 
 - 数学知识
@@ -74,17 +79,62 @@
 <br>
 
 - 字典使用
-  - a = dict()
-  - a.get(key)
-  - dict.get(key, default=None), default的意思是当该键的值不存在的时候用default代替
-  - 字典查找最大值的键:
-    - max(dict, key=lambda x: d[x])
-    - max(dict, key=d.get)
-    - import operator
-      max(dict, key=operator.itemgetter(d)) 
-      - python的itemgetter：用于获取对象的哪些维的数据。返回一个函数，将函数作用在一个对象上才能获取值
-        - itemgetter经常用在类似sorted函数的key参数中
-        - 比如sorted(x,key=itemgetter(1,2),reverse=False)代表正序，按照x的第二个排序，若第二个相同则按照第三个排序
+  - python dict
+    - 初始化
+      - d = {}, d={'DXY':"19950819" , 'HJL':"19960424"}
+      - d = dict([["a",1],["b",2],["c",3]])
+      - d = dict(name='DYX', age=24)
+      - d = dict.fromkeys(['name','age','sex']) 根据key创建value为None的字典
+    - 获取元素
+      - dict[key]
+      - dict.get(key)
+      - dict.get(key, default=None), default的意思是当该键的值不存在的时候用default代替
+      - keys,items,values
+    - 添加与修改
+      - 添加
+        - d[new_key] = value
+        - d.update({'a':'a','b':'b'})
+      - 删除
+        - d.clear()
+        - del d
+        - del d['a']
+        - d.pop(key)
+      - 判断是否在dict中
+        - if 'a' in d
+      - 字典排序
+        - 根据key排序
+          - sorted(d)
+        - 根据value排序
+          - sorted(d,key=d.__getitem__)
+        - 根据value(items)排序
+          - sorted(d.items(),key=lambda d:d[0])
+          - max(d, key=lambda x: d[x])
+    - 字典查找最大值的键:
+      - max(dict, key=lambda x: d[x])
+      - max(dict, key=d.get)
+      - import operator
+        max(dict, key=operator.itemgetter(d)) 
+        - python的itemgetter：用于获取对象的哪些维的数据。返回一个函数，将函数作用在一个对象上才能获取值
+          - itemgetter经常用在类似sorted函数的key参数中
+          - 比如sorted(x,key=itemgetter(1,2),reverse=False)代表正序，按照x的第二个排序，若第二个相同则按照第三个排序
+  - collections.OrderedDict
+      - dict = OrderedDict()
+      - 方法
+        - 创建
+          - dict = OrderedDict()
+        - 赋值：
+          - dict.update({'a':'a','b':'b'})
+          - dict['a'] = 1
+        - 拷贝
+          - dict.copy()
+        - 清空
+          - dict.clear() 
+        - 返回值
+          - dict.items(), dict.keys(), dict.values()
+        - 弹出指定key的value
+          - dict.pop(key)
+        - 弹出最后（或第一个）加入的元素
+          - dict.popitem(last=True) 
   - Python 3.6 后，默认字典就是有序的，因此无需使用 OrderedDict()
   - python中的dict实际上是哈希散列表，查找的时间是O(1)。首先python计算处key的hash值，再经过与等操作得到在哈希表中的index值，查表，若占用比较key，若不相同则hash冲突，再散列。若相同则更新value。
     - 不好之处是经过这一系列变换的操作，哈希表会稀疏。
@@ -93,6 +143,7 @@
     - dict类的哈希法是以空间换时间。 
     - python中list的存储结构是线性表，线性表的查找需要一个一个找O(n)。Python中的列表存放的不是值而是地址。
     - 解决hash冲突的算法是决定dict结构的时间复杂度的重要一环。
+    
 <br>
 
 - 字符和字符串str

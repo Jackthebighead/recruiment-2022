@@ -161,6 +161,7 @@
       - 步骤
         - 想象我们线性遍历数据就能得出答案
         - 写出状态转移关系式，当前状态由前面状态决定
+          - 一般的转移关系都是: dp[i] = dp[i-1]+xxxx 或 dp[i] = max(dp[i-1],xxxxx), 转移的if条件也要注意
         - 找边界情况，初始化情况
         - 写代码
         ``` python
@@ -170,6 +171,8 @@
                     solve_the_dp_bottom_up()  # to avoid recursion, from boudary initialization to the current state
                     operations()
                 return dp[xxx] 
+        ```
+        - 经典例题: jz63.py简单的动态规划
     - 对以i位置之前的状态
       - 定义状态，看是否能用类似‘以i结尾’来定义
       - 确定dp[i]与dp[i-1]的关系
@@ -204,6 +207,7 @@
                   return max(self.maxDepth(root.left),self.maxDepth(root.right)) + 1    
         - 若递归修改某个global量，不用return直接修改
       - 写完递归问题要仔细考虑是否能精简代码优化设计，代码风格很重要。
+      - 短路递归：n>1 and self.sumNums(n-1) 这样的代码，当and前面一项不符合的时候就不会执行后面的代码，可以起到不用if即可完成短路。
   - 树（TreeNode）的问题
     - 树的知识：
       - 树的深度等于左子树的深度与右子树的深度中的最大值+1。  
