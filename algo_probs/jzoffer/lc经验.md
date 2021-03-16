@@ -73,6 +73,13 @@
           - 除了一个数字出现一次，其他都出现了三次，让我们找到出现一次的数
             - 变式。对每一位统计所有数的1的个数，若能被3整除则是重复的数字，若不能则是特异数，对每位循环再|=上每一位就构成了特异数，返回即可             
   - 查找/搜索问题
+    - 子序列问题：
+      - 两个字符串的子序列问题，一般可以往动态规划上想
+        - 动态规划解决两个字符串的子序列问题，一般需要设两个指针i和j，分别扫描两个字符串，并针对两个字符串的每个字符做出相应操作。可以从后向前扫描（自顶向下的动态规划），也可以从前向后扫描（自底向上的动态规划）。
+        - 最长公共子序列问题
+          - 自序列可以不连续
+        - 最长公共子串问题
+          - 子串必须连续
     - 线性查找：
       - 可能会需要借助各种数据结构
       - 可能涉及动态规划
@@ -211,6 +218,97 @@
   - 树（TreeNode）的问题
     - 树的知识：
       - 树的深度等于左子树的深度与右子树的深度中的最大值+1。  
+    - 树的特性（各种树）
+      - 搜索二叉树：左小右大
+        - 节点的左子树只包含小于当前节点的数。节点的右子树只包含大于当前节点的数。所有左子树和右子树自身必须也是二叉搜索树。
+        - 方法1:中序遍历
+          - ``` python
+                def isValidBST(self, root: TreeNode) -> bool:
+                    self.inorder = []
+                    if not root: return True
+                    def recur(root):
+                        if not root: return 
+                        recur(root.left)
+                        self.inorder.append(root.val)
+                        recur(root.right)
+                    recur(root)
+                    return True if all(self.inorder[i]>self.inorder[i-1] for i in range(1,len(self.inorder))) else False 
+        - 方法2:递归，根据定义判断。注意要设置一个最大上界下界
+          - ``` python
+                def isValidBST(self, root: TreeNode) -> bool:
+                    if not root: return True
+                    def recur(root, lower, upper):
+                        if not root: return True
+                        # 若满足当前节点在该层的搜索树性质，递归下面
+                        if lower<root.val<upper:
+                            left = recur(root.left,lower, root.val)
+                            right = recur(root.right,root.val, upper)
+                            if left and right: return True
+                            else: return False
+                        else: return False
+                        return recur(root, float('-inf'), float('inf'))
+      - 完全二叉树
+        - 方法1:
+          - ``` python
+                def isCompleteTree(self, root: TreeNode) -> bool:
+                    # 广度优先的方法
+                    if not root: return True
+                    q = collections.deque()
+                    q.append(root)
+                    res = []
+                    flag = False
+                    while q:
+                        node = q.popleft()
+                        if node.left: q.append(node.left)
+                        if node.right: q.append(node.right)
+
+                        if not node.left and node.right: return False
+                        # 若此前已经有“无左无右的节点，或只有左的节点 ”，那么BFS遍历的后面必须也都是这样的节点    
+                        if flag and (node.left or node.left): return False
+                        if (not node.left and not node.right) or (not node.right and node.left):
+                            flag = 1
+                    return True
+        - 方法2:
+          - ``` python
+                def isCompleteTree(self, root: TreeNode) -> bool:
+                    # 用指标i记录节点序数的方法
+                    res = [(root,1)]
+                    i = 0 
+                    while i<len(res):
+                        node,l = res[i]
+                        if not node: continue  # redundant
+                        else:
+                            if node.left: res.append((node.left,l*2))
+                            if node.right: res.append((node.right,l*2+1))
+                        i+=1 
+                      return res[-1][1] == len(res) 
+      - 满二叉树
+        - ``` python
+              def is_full(self,root):
+                  if not root: return True
+                  elif root.left and root.right:
+                      left,right = self.is_full(root.left),self.is_full(root.right)
+                      if left and right: return True
+                      else: return False
+                  else:
+                      return False
+      - 平衡二叉树：左子树和右子树的深度相差不超过1
+        - ``` python
+              def isBalanced(self, root):
+                  # inputs: root: TreeNode
+                  # outputs: bool
+                  if not root: return True
+                  def recur(root):
+                      if not root: return 0
+                      left = recur(root.left)
+                      if left == -1: return -1
+                      right = recur(root.right)
+                      if right == -1: return -1
+            
+                      if abs(left-right)<=1: return max(left,right)+1
+                      else: return -1
+                  return recur(root)>=0
+      - 对称二叉树，镜像二叉树
     - 树的遍历问题
       - 前中后序遍历
         - 模版: 

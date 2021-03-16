@@ -76,6 +76,7 @@
   - 可以用来构建各种基于线性表的数据结构，栈，队列，等
   - list的pop(0)的复杂度高于pop()，因为python在底层对pop的实现是，若pop一个元素，后序操作是改变pop后所有元素的index，即如果pop第一个元素，那么剩下所有元素的index都得-1，所以worst case 时间复杂度是O(n)。这是一个tradeoff因为这样的机制让python list的index函数是O(1)复杂度。
   - 对于 python ，range() 的工作机制是在开启循环时建立一个列表，然后循环按照这个列表进行，因此若用for i in range(len(queue)):只会在进入循环前执行一次 len(queue) ，后面queue怎么改变都可以。
+  - list的reverse函数是一个迭代器，得这么调用：l.reverse(); l
 <br>
 
 - 字典使用

@@ -1,4 +1,4 @@
-# 题意：LRU涉及
+# 题意：LRU设计
 
 import sys
 import collections

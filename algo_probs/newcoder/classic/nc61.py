@@ -1,4 +1,4 @@
-# 题意 两数之和
+# 题意 两数之和https://github.com/Jackthebighead/NLP-PyTorch-learning/blob/master/nlp_tasks/text_classification/test_classification.ipynb
 class Solution:
 
     def twoSum(self , numbers , target ):
